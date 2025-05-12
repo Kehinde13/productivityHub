@@ -1,5 +1,4 @@
 
-````markdown
 # Productivity Hub 🧰
 
 Welcome to **Productivity Hub**, a minimalist Next.js app designed to boost your productivity and mindfulness with simple, effective tools.
@@ -22,7 +21,7 @@ Welcome to **Productivity Hub**, a minimalist Next.js app designed to boost your
 ```bash
 git clone https://github.com/your-username/productivity-hub.git
 cd productivity-hub
-````
+```
 
 ### 2. Install Dependencies
 
@@ -95,7 +94,7 @@ Pull requests and feature suggestions are welcome.
 ## 📫 Author
 
 * **Your Name**
-* GitHub: [@your-username](https://github.com/Kehinde13)
+* GitHub: [Kehinde13](https://github.com/Kehinde13)
 
 ```
 
