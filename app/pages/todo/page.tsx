@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from "next/navigation";
-import "../../styles/todo.css";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 interface TodoItem {
@@ -14,14 +13,13 @@ export default function Todo() {
 
   const router = useRouter();
 
-  // ✅ Load todos from localStorage on first render
   useEffect(() => {
     const stored = localStorage.getItem('todos');
     if (stored) {
       setTodos(JSON.parse(stored));
     }
   }, []);
-  
+
   useEffect(() => {
     if (todos.length > 0) {
       localStorage.setItem('todos', JSON.stringify(todos));
@@ -54,36 +52,52 @@ export default function Todo() {
   };
 
   return (
-    <div className="container mx-auto p-8 relative">
-      <div className="header">
-      <button
-        onClick={() => router.push("/")}
-        className="absolute top-4 left-4 text-white"
+    <div className="max-w-md mx-auto p-4">
+      {/* Header */}
+      <div
+        className="relative h-52 rounded-t-lg bg-cover bg-no-repeat bg-center"
+        style={{ backgroundImage: "url('/images/bg1.jpg')" }}
       >
-        <i className="fa fa-long-arrow-left text-2xl" aria-hidden="true"></i>
-      </button>
-        <div className="clear">
-          <button onClick={clearAll}>Clear All</button>
+        <button
+          onClick={() => router.push("/")}
+          className="absolute top-4 left-4 text-white bg-gradient-to-b from-blue-950 to-blue-700 p-2 rounded-md"
+        >
+          <i className="fa fa-long-arrow-left text-lg" aria-hidden="true"></i>
+        </button>
+        <button
+          onClick={clearAll}
+          className="absolute top-4 right-4 text-white bg-gradient-to-b from-blue-950 to-blue-700 p-2 rounded-md font-bold"
+        >
+          Clear All
+        </button>
+        <div className="absolute bottom-4 left-4 text-white text-2xl font-titillium">
+          {new Date().toDateString()}
         </div>
-        <div id="date">{new Date().toDateString()}</div>
       </div>
 
-      {/* ✅ Fix scroll on desktop */}
-      <div className="content ">
-        <ul className="space-y-2 overflow-y-scroll md:h-96">
+      {/* Content */}
+      <div className="bg-white max-h-[350px] overflow-y-auto no-scrollbar ">
+        <ul>
           {todos.map((todo, index) => (
-            <li key={index} className="item">
+            <li
+              key={index}
+              className="relative border-b border-gray-200 min-h-[45px] flex items-center px-2"
+            >
               <i
-                className={`far co ${
-                  todo.completed ? "fa-check-circle" : "fa-circle"
-                }`}
+                className={`far ${
+                  todo.completed ? "fa-check-circle text-green-600" : "fa-circle"
+                } text-xl cursor-pointer`}
                 onClick={() => checkTodo(index)}
               ></i>
-              <p className={`text ${todo.completed ? "lineThrough" : ""}`}>
+              <p
+                className={`ml-4 text-lg flex-1 break-words ${
+                  todo.completed ? "line-through text-gray-400" : "text-black"
+                }`}
+              >
                 {todo.text}
               </p>
               <i
-                className="far fa-trash-alt de"
+                className="far fa-trash-alt text-xl text-red-600 cursor-pointer"
                 onClick={() => deleteTodo(index)}
               ></i>
             </li>
@@ -91,8 +105,12 @@ export default function Todo() {
         </ul>
       </div>
 
-      <form onSubmit={addTodo} className="add-to-do mb-8">
-        <button type="submit">
+      {/* Add Todo */}
+      <form
+        onSubmit={addTodo}
+        className="relative mt-4 border-t border-gray-200 flex items-center p-2"
+      >
+        <button type="submit" className="text-3xl text-blue-600 cursor-pointer">
           <i className="fa fa-plus-circle"></i>
         </button>
         <input
@@ -100,7 +118,7 @@ export default function Todo() {
           value={input}
           onChange={handleInputChange}
           placeholder="Add a new todo"
-          className="mt-3 ml-3"
+          className="ml-4 w-full h-10 border-2 border-blue-600 rounded-lg px-3 text-lg placeholder-blue-600 font-titillium"
         />
       </form>
     </div>
